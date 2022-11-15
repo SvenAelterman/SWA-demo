@@ -152,7 +152,8 @@ internal sealed class CacheHelper
 
 		// The cache will return value if found
 		// TODO: Consider ignoring cached value if 2 bytes only (empty JSON object)
-		if (byteArray != null)
+		if (byteArray != null
+			&& byteArray.Length > 2)
 		{
 			// convert byte array to string
 			var obj = JsonSerializer.Deserialize<T>(byteArray);
@@ -162,7 +163,7 @@ internal sealed class CacheHelper
 
 		// Get User by invoking Function
 		T value = updateMethod.Invoke();
-		if (value == null)
+		if (value is null)
 			return default;
 
 
